@@ -6,15 +6,25 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def gcd(a, b):
+    """Modified Euclidean algorithm that skips even numbers and multiples of 5"""
     if a == 0:
         return b
     if b == 0:
         return a
+        
     while b:
+        # Skip divisors that are multiples of 2 or 5
+        while b % 2 == 0 or b % 5 == 0:
+            b //= 2 if b % 2 == 0 else 5
+        while a % 2 == 0 or a % 5 == 0:
+            a //= 2 if a % 2 == 0 else 5
+            
         a, b = b, a % b
+    
     return a
 
 def find_gcd_list(numbers):
+    """Find GCD of a list of numbers, skipping divisors we don't want"""
     return reduce(gcd, numbers)
 
 def get_box_solutions(initial_grid, box_row, box_col):
@@ -151,23 +161,29 @@ def find_best_solution(solutions):
     max_gcd = 0
     best_board = None
     
+    def row_to_number(row_values):
+        """Convert a row of digits to a single number"""
+        return int(''.join(map(str, row_values)))
+    
     for idx, solution in enumerate(solutions):
         if idx % 100 == 0:
             logger.info(f"Processing solution {idx}")
         
-        min_row_gcd = float('inf')
-        
-        # Find the minimum GCD among all rows
+        # Convert each row to a number and find GCD between all rows
+        row_numbers = []
         for i in range(9):
             row_values = get_row_values(solution, i)
-            row_gcd = find_gcd_list(row_values)
-            min_row_gcd = min(min_row_gcd, row_gcd)
+            row_numbers.append(row_to_number(row_values))
         
-        # Update best solution if this one has a higher minimum GCD
-        if min_row_gcd > max_gcd:
-            max_gcd = min_row_gcd
+        # Calculate GCD of all row numbers
+        current_gcd = find_gcd_list(row_numbers)
+        
+        # Update best solution if this one has a higher GCD
+        if current_gcd > max_gcd:
+            max_gcd = current_gcd
             best_board = solution
             logger.info(f"New best solution found with GCD: {max_gcd}")
+            logger.debug(f"Row numbers: {row_numbers}")
 
     return best_board, max_gcd
 
