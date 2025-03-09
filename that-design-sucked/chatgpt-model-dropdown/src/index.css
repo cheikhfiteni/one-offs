@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.radix-side-bottom\:animate-slideUpAndFade[data-side="bottom"] {
+  animation: slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.radix-side-right\:animate-slideLeftAndFade[data-side="right"] {
+  animation: slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.radix-side-left\:animate-slideRightAndFade[data-side="left"] {
+  animation: slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.radix-side-top\:animate-slideDownAndFade[data-side="top"] {
+  animation: slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom token styles */
+:root {
+  --token-main-surface-primary: #ffffff;
+  --token-main-surface-secondary: #f7f7f8;
+  --token-text-primary: #000000;
+  --token-text-secondary: #6e6e80;
+  --token-text-tertiary: #8e8ea0;
+  --token-text-quaternary: #acacbe;
+  --token-border-light: #e5e5e5;
+  --token-border-heavy: #2d2d2d;
+}
+
+.dark {
+  --token-main-surface-primary: #1a1a1a;
+  --token-main-surface-secondary: #2d2d2d;
+  --token-text-primary: #ffffff;
+  --token-text-secondary: #c5c5d2;
+  --token-text-tertiary: #8e8ea0;
+  --token-text-quaternary: #565869;
+  --token-border-light: #2d2d2d;
+  --token-border-heavy: #565869;
+}
+
+.bg-token-main-surface-primary {
+  background-color: var(--token-main-surface-primary);
+}
+
+.bg-token-main-surface-secondary {
+  background-color: var(--token-main-surface-secondary);
+}
+
+.text-token-text-primary {
+  color: var(--token-text-primary);
+}
+
+.text-token-text-secondary {
+  color: var(--token-text-secondary);
+}
+
+.text-token-text-tertiary {
+  color: var(--token-text-tertiary);
+}
+
+.text-token-text-quaternary {
+  color: var(--token-text-quaternary);
+}
+
+.border-token-border-light {
+  border-color: var(--token-border-light);
+}
+
+.border-token-border-heavy {
+  border-color: var(--token-border-heavy);
+}
+
+/* Radix UI specific styles */
+.popover {
+  will-change: transform, opacity;
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+}
+
+[data-radix-popper-content-wrapper] {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  min-width: max-content;
+  will-change: transform;
+}
